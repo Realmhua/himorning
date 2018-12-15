@@ -1,6 +1,7 @@
 'use strict'
 
-var greeting = require('./hello');
+let greeting = require('./hello');
+let pug = require('pug');
 
 console.log('hello world');
 greeting('Alfred');
@@ -8,15 +9,16 @@ greeting('Alfred');
 process.nextTick(() => console.log('nexttick callback'));
 console.log('what\' your name');
 
-let fs = require('fs');
-fs.readFile('README', 'utf-8', (err, data) => {
-    console.log(typeof (err));
-    console.log(data);
-});
+const cf = pug.compileFile('one.pug');
+console.log(cf({
+    name: '华夏'
+}));
 
-fs.stat('README', (err, stat) => {
-    console.log(stat);
-});
+console.log(pug.renderFile('one.pug', {
+    name: '函谷关'
+}));
+
+pug.render('the sun comes up, it\'s new day dawning');
 
 process.on('exit', code => {
     console.log('about to exit with code: ' + code)
