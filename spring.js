@@ -1,6 +1,6 @@
 'use strict'
 
-let greeting = require('./hello');
+let greeting = require('./hello').greeting;
 let pug = require('pug');
 
 console.log('hello world');
