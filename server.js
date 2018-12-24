@@ -4,31 +4,51 @@ const http = require('http');
 const url = require('url');
 const path = require('path');
 const aes = require('./hello').aes;
+const os = require('os');
+const uuid = require('uuid');
+const process = require('process');
+const cluster = require('cluster');
+const pug = require('pug');
+const fs = require('fs');
 
-let va = 12;
-console.log('alf');
-let v2 = 5;
-console.log(v2);
 
-function func1() {
-    var v4 = 20;
-    if (1 > 3) {
-        var v3 = 7;
+
+let server = http.createServer(function (req, res) {
+    let purl = url.parse(req.url);
+    console.log(req.method + ': ' + req.url);
+    console.log(purl);
+
+    if (purl.pathname.toLowerCase().endsWith('.jpg')) {
+        res.writeHead(200, {
+            'Content-Type': 'image/jpg'
+        });
+        res.end(fs.readFileSync('.' + purl.pathname));
+
+    } else if (purl.pathname.toLowerCase().endsWith('.ico')) {
+        res.writeHead(200, {
+            'Content-Type': 'image/ico'
+        });
+        res.end(fs.readFileSync('.' + purl.pathname));
+    } else {
+        res.writeHead(200, {
+            'Content-Type': 'text/html'
+        });
+        res.writeHead(200, {
+            'Content-Type': 'text/html;charset=UTF8'
+        });
+
+        const cf = pug.compileFile('one.pug');
+        let r1 = pug.render('<h1>the sun comes up, it\'s new day dawning</h1>');
+
+        res.write(pug.render('img(src="/img/002.jpg")'));
+        res.write(pug.render('img(src="/img/12Q3S021-13J.jpg")'));
+        res.write(pug.render('img(src="/img/025.jpg")'));
+        
+
+        res.write(r1);
+        res.end(cf({
+            name: '华夏'
+        }));
     }
-    console.log(typeof v3);
-    console.log('v3: ' + v3);
-    console.log('v4: ' + v4);
-}
-func1();
-console.log('<<<<<v4: ' +typeof v4);
-
-// let server = http.createServer(function (req, res) {
-//     console.log(req.method + ': ' + req.url);
-//     console.log(url.parse(req.url));
-//     res.writeHead(200, {
-//         'Content-Type': 'text/html'
-//     });
-//     res.end('<h1>hello, world.</h2>');
-// });
-// server.listen(8000);
-// console.log('Server(HTTP) is running at http://127.0.0.1:8000');
+}).listen(8000);
+console.log('Server(HTTP) is running at http://127.0.0.1:8000');
