@@ -15,8 +15,8 @@ const fs = require('fs');
 
 let server = http.createServer(function (req, res) {
     let purl = url.parse(req.url);
-    console.log(req.method + ': ' + req.url);
-    console.log(purl);
+    //console.log(req.method + ': ' + req.url);
+    //console.log(purl);
 
     if (purl.pathname.toLowerCase().endsWith('.jpg')) {
         res.writeHead(200, {
@@ -41,9 +41,10 @@ let server = http.createServer(function (req, res) {
         let r1 = pug.render('<h1>the sun comes up, it\'s new day dawning</h1>');
 
         res.write(pug.render('img(src="/img/002.jpg")'));
-        res.write(pug.render('img(src="/img/12Q3S021-13J.jpg")'));
+        res.write(pug.render('img(src="/img/007.jpg")'));
         res.write(pug.render('img(src="/img/025.jpg")'));
-        
+
+        res.write(process.cpuUsage());
 
         res.write(r1);
         res.end(cf({
@@ -52,3 +53,7 @@ let server = http.createServer(function (req, res) {
     }
 }).listen(8000);
 console.log('Server(HTTP) is running at http://127.0.0.1:8000');
+
+process.on('uncaughtException', err => {
+    console.log('uncaughtException occur: ' + err.message);
+});
