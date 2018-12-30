@@ -11,7 +11,13 @@ const cluster = require('cluster');
 const pug = require('pug');
 const fs = require('fs');
 
-
+let pugFilters = {
+    'my-own-filter': function (text, options) {
+        if (options.addStart) text = 'Start<br />' + text;
+        if (options.addEnd) text = text + '\nEnd';
+        return text;
+    }
+};
 
 let server = http.createServer(function (req, res) {
     let purl = url.parse(req.url);
@@ -37,14 +43,16 @@ let server = http.createServer(function (req, res) {
             'Content-Type': 'text/html;charset=UTF8'
         });
 
-        const cf = pug.compileFile('one.pug');
+        const cf = pug.compileFile('one.pug', {
+            filters: pugFilters
+        });
         let r1 = pug.render('<h1>the sun comes up, it\'s new day dawning</h1>');
 
         res.write(pug.render('img(src="/img/002.jpg")'));
         res.write(pug.render('img(src="/img/007.jpg")'));
         res.write(pug.render('img(src="/img/025.jpg")'));
 
-        res.write(process.cpuUsage());
+        res.write(JSON.stringify(process.cpuUsage()));
 
         res.write(r1);
         res.end(cf({

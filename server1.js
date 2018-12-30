@@ -5,9 +5,9 @@ const url = require('url');
 const path = require('path');
 const fs = require('fs');
 
+/*
 let root = path.resolve(process.argv[2] || '.');
 console.log('Static root dir: ' + root);
-
 let server = http.createServer(function (req, res) {
     let pathname = url.parse(req.url).pathname;
     let filepath = path.join(root, pathname);
@@ -25,3 +25,14 @@ let server = http.createServer(function (req, res) {
 });
 server.listen(8000);
 console.log('Server(HTTP) is running at http://127.0.0.1:8000');
+*/
+
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+    res.send('Hello, world!');
+})
+app.listen(8000, () => {
+    console.log(`Example app listening on port 8000`);
+})

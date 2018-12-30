@@ -1,1 +1,52 @@
 p #{name}的Pug 代码
+
+:markdown-it(linkify langPrefix='highlight-')
+  # Markdown
+
+  Markdown document with http://links.com and
+
+  ```js
+  let codeBlocks;
+  ```
+
+script
+  :coffee-script
+    console.log 'This is coffee script'
+
+p
+  :markdown-it(inline) **加粗文字**
+
+p.
+  在漫无边际的无聊纯文本构成的垃圾文字的海洋上,
+  突然一只野生的 #[:markdown-it(inline) *Markdown*]出现在我的视野.
+
+p
+  :my-own-filter(addStart addEnd)
+    过滤
+    正文
+    aloha
+
+a(href='http://www.google.com') google
+|
+|
+a(class='button' href='baidu.com') baidu
+|
+|
+input(
+    type='radio'
+    name='yesorno'
+    checked
+)
+input(
+    type='radio'
+    name='yesorno'
+)
+
+div(class='div-class' '(click)'='alert(9)')  MMMMMMMM  |  MMMMMMMMMM
+
+- let btnType = 'info'
+- let btnSize = 'lg'
+button(type='button' class='btn btn-'+btnType+' btn-'+btnSize) One
+|
+|
+button(type='button' class=`btn btn-${btnType} btn-${btnSize}`) Two

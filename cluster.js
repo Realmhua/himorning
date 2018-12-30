@@ -9,7 +9,7 @@ if (cluster.isMaster) {
         let wk = cluster.fork();
         wk.send('[master say] hi workder ' + wk.id);
     }
-
+    
     cluster.on('fork', worker => console.log('[Master] fork worker ' + worker.id));
     cluster.on('online', worker => console.log('[Master] online worker ' + worker.id));
     cluster.on('listening', (worker, address) =>
@@ -23,7 +23,7 @@ if (cluster.isMaster) {
     }
     setTimeout(() => {
         eachWorker(worker => worker.send('[master say again] I am mater, you are worker ' + worker.id));
-    }, 3000);
+    },  3000);
 
     Object.keys(cluster.workers).forEach(id => {
         cluster.workers[id].on('message', msg => console.log('[master RECEIVE] ' + msg));
