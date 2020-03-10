@@ -4,6 +4,7 @@ const http = require('http');
 const url = require('url');
 const path = require('path');
 const fs = require('fs');
+const express = require('express');
 
 /*
 let root = path.resolve(process.argv[2] || '.');
@@ -27,7 +28,6 @@ server.listen(8000);
 console.log('Server(HTTP) is running at http://127.0.0.1:8000');
 */
 
-const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
