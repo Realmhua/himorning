@@ -7,7 +7,7 @@
     "express": "^4.16.4",
     "jstransformer-coffee-script": "^1.1.1",
     "jstransformer-markdown-it": "^2.1.0",
-    "pug": "^2.0.3",
+    "pug": "^3.0.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {},
